@@ -51,7 +51,7 @@ namespace Consumer
             {
                 value = -1;
             }
-            Console.WriteLine($"Value: {value}");
+            
             DateTime ts = res.Message.Timestamp.UtcDateTime;
             Console.WriteLine($"Consumed event from topic: {topic}, key = {res.Message.Key}, value = {value}, timestamp = {ts.ToLongTimeString()}");
 
