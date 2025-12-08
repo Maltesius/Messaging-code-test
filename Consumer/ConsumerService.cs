@@ -11,9 +11,10 @@ namespace Consumer
     {
         ConsumerConfig config = new ConsumerConfig
         {
-            BootstrapServers = "localhost:9092",
+            BootstrapServers = "kafka:9092",
 
             GroupId = "test",
+            AllowAutoCreateTopics = true,
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
 
@@ -33,7 +34,16 @@ namespace Consumer
         {
 
 
-            var res = consumer.Consume(1000);
+            ConsumeResult<string,string>? res;
+            try
+            {
+                res = consumer.Consume(1000);
+            } catch (ConsumeException e)
+            {
+                Console.WriteLine($"Error occured nemlig: {e.Error.Reason}");
+                res = null;
+            }
+            
 
             
             if (res == null)

@@ -14,7 +14,7 @@ namespace Consumer
 
         readonly ProducerConfig config = new ProducerConfig
         {
-            BootstrapServers = "localhost:9092",
+            BootstrapServers = "kafka:9092",
 
             Acks = Acks.All
         };

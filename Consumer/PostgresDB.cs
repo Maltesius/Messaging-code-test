@@ -4,7 +4,7 @@ namespace Consumer
 {
     public class PostgresDB : IDatabase
     {
-        private static string Host = "localhost";
+        private static string Host = "db";
         private static string User = "postgres";
         private static string DBName = "postgres";
         private static string Password = "test";

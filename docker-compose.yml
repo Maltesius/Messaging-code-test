@@ -1,0 +1,77 @@
+services:
+  producer:
+    image: ${DOCKER_REGISTRY-}producer
+    build:
+      context: .
+      dockerfile: Producer/Dockerfile
+    depends_on:
+      kafka:
+        condition: service_started
+
+
+  consumer:
+    image: ${DOCKER_REGISTRY-}consumer
+    build:
+      context: .
+      dockerfile: Consumer/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafkaService
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_KRAFT_MODE: "true"
+
+      CLUSTER_ID: "kafka-cluster-1"
+      KAFKA_NODE_ID: 1
+
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
+
+      KAFKA_CREATE_TOPICS: "messages:1:1"
+
+      
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - pgdata:/var/lib/postgresql
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 5432:5432
+
+volumes:
+  pgdata:
+  kafka_data:
+
+
+
+
