@@ -55,6 +55,9 @@ void EvenSeconds(int count, DateTime timeStamp)
 {
     Console.WriteLine("Second even - Adding message to DB");
 
+    PostgresDB db = new();
+    db.addRowToDB(count, timeStamp);
+
 }
 
 void OddSeconds(int count)
