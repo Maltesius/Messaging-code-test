@@ -4,7 +4,7 @@ This repository represents a coding test. The goal of the test is to run a produ
 The code is written as a microservice, which is run by Docker
 
 ## How to run the code
-In the terminal at the code path with docker running: `docker compose up`
+In the terminal at the code path with docker running: `docker compose -p test-project up -d`
 This runs 6 services in total:
 - A .NET producer app
 - A .NET consumer app
