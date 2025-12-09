@@ -3,7 +3,7 @@ using Consumer.Interfaces;
 
 namespace Consumer.Services
 {
-    public class PublisherService : IPublisher
+    public class ProducerService : IProducer
     {
         // Topic on which to produce messages
         string topic;
@@ -13,7 +13,7 @@ namespace Consumer.Services
 
         IProducer<string, string> producer;
 
-        public PublisherService() {
+        public ProducerService() {
             this.topic = "messages";
             this.config = new ProducerConfig
             {
@@ -30,7 +30,7 @@ namespace Consumer.Services
         /// <param name="count">
         /// The integer value that is specified to be published on the message
         /// </param>
-        public void Publish(int count)
+        public void Produce(int count)
         {
             Timestamp ts = Timestamp.Default;
             producer.Produce(topic, new Message<string, string> { Key = "count", Value = $"{count}", Timestamp = ts },
