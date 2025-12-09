@@ -8,8 +8,13 @@ IPublisher publisherService = new PublisherService();
 IDatabase db = new PostgresDBService();
 PeriodicTimer timer = new(TimeSpan.FromSeconds(1));
 
-LogicHandler logicHandler = new LogicHandler(consumerService, publisherService, db, timer);
-await logicHandler.StartProgram();
+LogicHandler logicHandler = new LogicHandler(consumerService, publisherService, db);
+
+// Consume once every second
+while (await timer.WaitForNextTickAsync())
+{
+    await logicHandler.Consume();
+}
 
 
 
