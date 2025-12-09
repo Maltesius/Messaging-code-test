@@ -1,6 +1,7 @@
 ﻿using Confluent.Kafka;
+using Consumer.Interfaces;
 
-namespace Consumer
+namespace Consumer.Services
 {
     /// <summary>
     /// The class for handling a Kafka consumer service

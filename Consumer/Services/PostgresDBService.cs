@@ -1,8 +1,9 @@
-﻿using Npgsql;
+﻿using Consumer.Interfaces;
+using Npgsql;
 
-namespace Consumer
+namespace Consumer.Services
 {
-    public class PostgresDB : IDatabase
+    public class PostgresDBService : IDatabase
     {
         // Initial setup parameters for the PostgreSQL container db
         private static string Host = "db";
