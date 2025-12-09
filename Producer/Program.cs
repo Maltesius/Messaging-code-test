@@ -1,8 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Producer;
 
-using Producer;
+// Start the producer service
 
-ProducerService producerService = new ProducerService();
+IProducer producerService = new ProducerService();
 
 await producerService.StartProducing();
 
