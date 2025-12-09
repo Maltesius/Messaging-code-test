@@ -9,6 +9,6 @@ namespace Consumer
     internal interface IConsumer
     {
 
-        (int, DateTime)? StartConsuming();
+        (int, DateTime)? ConsumeMessage();
     }
 }

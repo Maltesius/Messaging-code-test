@@ -8,6 +8,6 @@ namespace Consumer
 {
     internal interface IPublisher
     {
-        void Publish();
+        void Publish(int count);
     }
 }

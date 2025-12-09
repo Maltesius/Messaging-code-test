@@ -2,14 +2,17 @@
 
 namespace Producer
 {
-    internal class ProducerService : IProducer
+    public class ProducerService : IProducer
     {
-        // hardcoded configs, can be modified with constructor
+        // hardcoded configs, modification can be added through constructor
 
+        // Messages always start the count with 0
         int count = 0;
 
+        // Topic to produce kafka messages to
         const string topic = "messages";
 
+        // Configuration for Kafka container producer
         ProducerConfig config = new ProducerConfig
         {
             BootstrapServers = "kafka:9092",
@@ -17,16 +20,24 @@ namespace Producer
             Acks = Acks.All
         };
 
-        
+        IProducer<string, string>? producer;
 
-        public ProducerService() {
-            
-        }
-
+        /// <summary>
+        /// Starts the asynchronous process of producing messages to the configured kafka service at set intervals 
+        /// </summary>
+        /// <remarks>
+        /// Interval is currently set to 5 seconds, could be made modular in the future. Method runs indefinitely until the application is terminated.
+        /// </remarks>
+        /// <returns>
+        /// A Task - only returns when application is terminated. 
+        /// </returns>
         public async Task StartProducing()
         {
-            var producer = new ProducerBuilder<string, string>(config).Build();
+            // If producer is not initialized, create a new one
+            producer ??= new ProducerBuilder<string, string>(config).Build();
 
+            // Set up a periodic timer to produce messages every 5 seconds
+            // Could possibly be modular in the future 
             PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
             while (await timer.WaitForNextTickAsync())
             {
@@ -48,15 +59,8 @@ namespace Producer
 
                     );
 
-                /*
-                Message message = new Message();
-                for (int i = 0; i<count; i++) {
-                    message.UpdateCounter();
-                }
-                */
-
                 producer.Flush();
-                /* Console.WriteLine(message.ToString());*/
+                
             }
         }
     }

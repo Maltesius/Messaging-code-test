@@ -10,7 +10,7 @@ namespace Consumer
     {
 
         void connectToDB();
-        bool pingDB();
+        void closeConnection();
 
         void addRowToDB(int count, DateTime timeStamp);
     }

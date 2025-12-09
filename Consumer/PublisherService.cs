@@ -1,17 +1,14 @@
 ﻿using Confluent.Kafka;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Consumer
 {
-    internal class PublisherService(int count) : IPublisher
+    internal class PublisherService() : IPublisher
     {
-        readonly int count = count;
+        // Topic on which to produce messages
         const string topic = "messages";
+        
 
+        // Configuration options for Kafka producer
         readonly ProducerConfig config = new ProducerConfig
         {
             BootstrapServers = "kafka:9092",
@@ -19,13 +16,21 @@ namespace Consumer
             Acks = Acks.All
         };
 
-        public void Publish()
-        {
+        IProducer<string, string>? producer;
 
-            var producer = new ProducerBuilder<string, string>(config).Build();
+        /// <summary>
+        /// Publishes a message with a given count to the Kafka topic
+        /// </summary>
+        /// <param name="count">
+        /// The integer value that is specified to be published on the message
+        /// </param>
+        public void Publish(int count)
+        {
+            // If producer is not initialized, create a new one
+            producer ??= new ProducerBuilder<string, string>(config).Build();
+
 
             Timestamp ts = Timestamp.Default;
-
             producer.Produce(topic, new Message<string, string> { Key = "count", Value = $"{count}", Timestamp = ts },
                 (deliveryReport) =>
                 {
@@ -38,6 +43,7 @@ namespace Consumer
                         Console.WriteLine($"Delivered message to topic: {topic}, key: count, value: {count}");
                     }
                 });
+
 
             producer.Flush();
 
