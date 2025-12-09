@@ -3,10 +3,10 @@ using Consumer.Interfaces;
 
 namespace Consumer
 {
-    public class LogicHandler(IConsumer consumerService, IPublisher publisherService, IDatabase db) : ILogicHandler
+    public class LogicHandler(IConsumer consumerService, IProducer producerService, IDatabase db) : ILogicHandler
     {
         IConsumer consumerService = consumerService;
-        IPublisher publisherService = publisherService;
+        IProducer producerService = producerService;
         IDatabase db = db;
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Consumer
             count++;
 
             // Start up a publisher service to republish the message with incremented count and new timestamp
-            publisherService.Publish(count);
+            producerService.Produce(count);
 
         }
 
