@@ -1,5 +1,6 @@
 ﻿using Producer;
 using Producer.Interfaces;
+using Producer.Services;
 
 // Get timer length from environment variable or default to 5 seconds
 int timerLength = Environment.GetEnvironmentVariable("TIMER") != null ? Int32.Parse(Environment.GetEnvironmentVariable("TIMER")) : 5;
@@ -9,9 +10,12 @@ Console.WriteLine($"Timer set to {timerLength} seconds.");
 PeriodicTimer timer = new(TimeSpan.FromSeconds(timerLength));
 IProducer producerService = new ProducerService();
 
-LogicHandler logicHandler = new LogicHandler(producerService, timer);
+LogicHandler logicHandler = new LogicHandler(producerService);
 
-await logicHandler.StartProgram();
+while (await timer.WaitForNextTickAsync())
+{
+    await logicHandler.StartProgram();
+}
 
 
 

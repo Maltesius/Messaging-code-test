@@ -8,6 +8,6 @@ namespace Consumer.Interfaces
 {
     public interface ILogicHandler
     {
-        public Task StartProgram();
+        public Task Consume();
     }
 }

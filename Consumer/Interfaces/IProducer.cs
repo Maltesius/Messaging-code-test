@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Consumer.Interfaces
 {
-    public interface IPublisher
+    public interface IProducer
     {
-        void Publish(int count);
+        void Produce(int count);
     }
 }

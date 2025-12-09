@@ -1,4 +1,5 @@
 ﻿using Consumer.Interfaces;
+using Consumer.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace Consumer.Testing
 {
-    public class PublisherSpy : IPublisher
+    public class OldMessageConsumerServiceStub : IConsumer
     {
-        public bool hasPublished = false;
-
-        public void Publish(int count)
+        public (int, DateTime)? ConsumeMessage()
         {
-            hasPublished = true;
+            return (1, DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(2)));
         }
     }
 }
