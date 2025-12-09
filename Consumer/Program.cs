@@ -1,5 +1,6 @@
 ﻿using Consumer;
 using Consumer.Interfaces;
+using Consumer.Services;
 
 // Set up consumer service for kafka messages
 IConsumer consumerService = new ConsumerService();
