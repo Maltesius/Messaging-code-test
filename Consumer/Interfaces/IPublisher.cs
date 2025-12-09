@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Consumer
+namespace Consumer.Interfaces
 {
-    internal interface IPublisher
+    public interface IPublisher
     {
         void Publish(int count);
     }

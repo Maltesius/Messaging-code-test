@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Producer
+namespace Consumer.Interfaces
 {
-    internal interface IProducer
+    public interface IConsumer
     {
 
-        Task StartProducing();
+        (int, DateTime)? ConsumeMessage();
     }
 }

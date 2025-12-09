@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Consumer
+namespace Consumer.Interfaces
 {
-    internal interface IDatabase
+    public interface IDatabase
     {
 
         void connectToDB();

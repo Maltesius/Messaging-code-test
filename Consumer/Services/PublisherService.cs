@@ -1,22 +1,28 @@
 ﻿using Confluent.Kafka;
+using Consumer.Interfaces;
 
-namespace Consumer
+namespace Consumer.Services
 {
-    internal class PublisherService() : IPublisher
+    public class PublisherService : IPublisher
     {
         // Topic on which to produce messages
-        const string topic = "messages";
-        
+        string topic;
 
         // Configuration options for Kafka producer
-        readonly ProducerConfig config = new ProducerConfig
-        {
-            BootstrapServers = "kafka:9092",
+        readonly ProducerConfig config;
 
-            Acks = Acks.All
-        };
+        IProducer<string, string> producer;
 
-        IProducer<string, string>? producer;
+        public PublisherService() {
+            this.topic = "messages";
+            this.config = new ProducerConfig
+            {
+                BootstrapServers = "kafka:9092",
+
+                Acks = Acks.All
+            };
+            this.producer = new ProducerBuilder<string, string>(config).Build();
+        }
 
         /// <summary>
         /// Publishes a message with a given count to the Kafka topic
@@ -26,10 +32,6 @@ namespace Consumer
         /// </param>
         public void Publish(int count)
         {
-            // If producer is not initialized, create a new one
-            producer ??= new ProducerBuilder<string, string>(config).Build();
-
-
             Timestamp ts = Timestamp.Default;
             producer.Produce(topic, new Message<string, string> { Key = "count", Value = $"{count}", Timestamp = ts },
                 (deliveryReport) =>
