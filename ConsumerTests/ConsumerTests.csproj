@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Messaging-code-test\Consumer\Consumer.csproj" />
+    <ProjectReference Include="..\Consumer\Consumer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
