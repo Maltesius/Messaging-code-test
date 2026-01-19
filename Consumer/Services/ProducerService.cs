@@ -17,7 +17,7 @@ namespace Consumer.Services
             this.topic = "messages";
             this.config = new ProducerConfig
             {
-                BootstrapServers = "kafka:9092",
+                BootstrapServers = "192.168.49.2:30032",
 
                 Acks = Acks.All
             };

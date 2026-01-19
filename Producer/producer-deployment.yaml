@@ -1,0 +1,36 @@
+﻿---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: producerbackend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: producerbackend
+    spec:
+      containers:
+      - name: producerbackend
+        image: maltesius/producerimage:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://*:80
+  selector:
+    matchLabels:
+      app: producerbackend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: producerbackend
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 32001
+  selector:
+    app: producerbackend

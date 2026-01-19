@@ -13,7 +13,7 @@ namespace Consumer.Services
         // BootstrapServers uses the Kafka broker Docker container address and NOT localhost
         ConsumerConfig config = new ConsumerConfig
         {
-            BootstrapServers = "kafka:9092",
+            BootstrapServers = "192.168.49.2:30032",
 
             GroupId = "test",
             AllowAutoCreateTopics = true,

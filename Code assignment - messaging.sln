@@ -13,6 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerTests", "..\Consume
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProducerTests", "..\ProducerTests\ProducerTests.csproj", "{CA4819E7-97C4-40F6-9F7F-A73D7C275734}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9AA0E6C4-2F51-46DA-B44C-78A8F0B29294}"
+	ProjectSection(SolutionItems) = preProject
+		kafka-deployment.yaml = kafka-deployment.yaml
+		kafka-ui-deployment.yaml = kafka-ui-deployment.yaml
+		postgres-deployment.yaml = postgres-deployment.yaml
+		postgres-secret.yaml = postgres-secret.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
