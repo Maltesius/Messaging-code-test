@@ -29,7 +29,10 @@ spec:
           image: postgres:17.1
           env:
             - name: POSTGRES_PASSWORD
-              value: test
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-password
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
