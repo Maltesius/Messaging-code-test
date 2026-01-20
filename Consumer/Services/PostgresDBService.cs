@@ -6,7 +6,7 @@ namespace Consumer.Services
     public class PostgresDBService : IDatabase
     {
         // Initial setup parameters for the PostgreSQL container db
-        private static string Host = "db";
+        private static string Host = "postgres-service";
         private static string User = "postgres";
         private static string DBName = "postgres";
         private static string Password = "test";
