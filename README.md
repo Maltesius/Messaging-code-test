@@ -1,3 +1,9 @@
+This branch is for usage inside a kubernetes cluster, but right now has an error with kafka not creating a consumer_offset topic, making consuming unavailable. 
+This is fixed by running the following command when every deployment file has been applied to the cluster:
+```
+kubectl exec -it kafka-deployment-0 -- bash -c 'KAFKA_HOME=/opt/kafka; $KAFKA_HOME/bin/kafka-topics.sh --bootstrap-server kafka-service:9092 --create --topic __consumer_offsets --partitions 50 --replication-factor 1 --config cleanup.policy=compact'
+```
+
 # Messaging-code-test
 This repository represents a coding test. The goal of the test is to run a producer, consumer, and message broker, and then make them work together.
 
