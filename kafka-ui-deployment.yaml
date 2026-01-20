@@ -38,4 +38,4 @@ spec:
         - name: KAFKA_CLUSTERS_0_NAME
           value: "kafka"
         - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
-          value: "192.168.49.2:30032"
+          value: "kafka-service:9092"
