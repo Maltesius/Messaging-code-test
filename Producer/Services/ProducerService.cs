@@ -27,7 +27,7 @@ namespace Producer.Services
             // Configuration for Kafka container producer
             this.config = new ProducerConfig
             {
-                BootstrapServers = "192.168.49.2:30032",
+                BootstrapServers = "kafka-service:9092",
 
                 Acks = Acks.All
             };
