@@ -13,7 +13,7 @@ namespace Consumer.Services
         // BootstrapServers uses the Kafka broker Docker container address and NOT localhost
         ConsumerConfig config = new ConsumerConfig
         {
-            BootstrapServers = "192.168.49.2:30032",
+            BootstrapServers = "kafka-service:9092",
 
             GroupId = "test",
             AllowAutoCreateTopics = true,
@@ -40,7 +40,6 @@ namespace Consumer.Services
         public (int, DateTime)? ConsumeMessage()
         {
 
-
             ConsumeResult<string,string>? res;
             try
             {
@@ -49,7 +48,7 @@ namespace Consumer.Services
             } catch (ConsumeException e)
             {
                 // No message was found on topic within timeout period so the result is returned as null
-                Console.WriteLine($"Error occured nemlig: {e.Error.Reason}");
+                Console.WriteLine($"Error occured: {e.Error.Reason}");
                 res = null;
             }
 
